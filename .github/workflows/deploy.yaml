@@ -22,10 +22,9 @@ jobs:
           ./build.sh
           du -sh out/*
 
-      - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v4.1.8
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: b8079ffa92c97010f2a8d759e24cc782
-          projectName: linuxpdf
-          directory: out
+          name: linux.pdf
+          path: out/
+          

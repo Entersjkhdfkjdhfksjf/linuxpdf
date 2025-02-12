@@ -3,7 +3,7 @@
 set -e
 set -x
 
-BITS="32"
+BITS="64"
 
 if [ ! -d "./emsdk" ]; then
   git clone https://github.com/emscripten-core/emsdk.git --branch 1.39.20

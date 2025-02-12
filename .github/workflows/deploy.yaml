@@ -25,9 +25,11 @@ jobs:
           ls
           echo output
           ls out
+          echo zipp-files
+          zip -r linuxpdf.zip out
 
       - name: Download a Build Artifact
         uses: actions/download-artifact@v4.1.8
         with:
-          name: out/linux.pdf
+          name: linuxpdf.zip
           

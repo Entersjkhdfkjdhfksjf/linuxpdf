@@ -1,24 +1,20 @@
-
 on: [push]
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    permissions:
-      contents: read
-      deployments: write
-
-    name: make linux
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Build
+      - name: Set up Python environment
         run: |
           python3 -m venv .venv
           source .venv/bin/activate
-          pip3 install -r requirements.txt
+          pip install -r requirements.txt
+
+      - name: Build and create artifact
+        run: |
           ./build.sh
           du -sh out/*
           echo current-dir
@@ -28,8 +24,24 @@ jobs:
           echo zipp-files
           zip -r linuxpdf.zip out
 
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v4.1.8
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
         with:
           name: linuxpdf.zip
-          
+          path: linuxpdf.zip
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: linuxpdf.zip
+
+      - name: Deploy
+        run: |
+          # Add your deploy steps here

@@ -9,7 +9,7 @@ jobs:
       contents: read
       deployments: write
 
-    name: Publish to Cloudflare Pages
+    name: make linux
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -25,6 +25,5 @@ jobs:
       - name: Download a Build Artifact
         uses: actions/download-artifact@v4.1.8
         with:
-          name: linux.pdf
-          path: out/
+          name: out/linux.pdf
           

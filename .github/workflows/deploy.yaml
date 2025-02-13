@@ -9,6 +9,7 @@ jobs:
 
       - name: Set up Python environment
         run: |
+          sudo apt install qemu-user-static -y
           python3 -m venv .venv
           source .venv/bin/activate
           pip install -r requirements.txt
